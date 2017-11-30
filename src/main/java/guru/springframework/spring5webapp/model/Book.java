@@ -12,22 +12,23 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
-    private String publisher;
     private String isbn;
+    @OneToOne
+    private Publisher publisher;
 
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
-    public Book(String title, String publisher, String isbn) {
+    public Book(String title, Publisher publisher, String isbn) {
         this.title = title;
         this.publisher = publisher;
         this.isbn = isbn;
     }
 
 
-    public Book(String title, String publisher, String isbn, Set<Author> authors) {
+    public Book(String title, Publisher publisher, String isbn, Set<Author> authors) {
         this.title = title;
         this.publisher = publisher;
         this.isbn = isbn;
@@ -42,11 +43,11 @@ public class Book {
         this.id = id;
     }
 
-    public String getPublisher() {
+    public Publisher getPublisher() {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+    public void setPublisher(Publisher publisher) {
         this.publisher = publisher;
     }
 
